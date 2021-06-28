@@ -14,6 +14,7 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class RpcServer {
@@ -22,10 +23,9 @@ public class RpcServer {
 
     private EventLoopGroup workerGroup = new NioEventLoopGroup(4);
 
-    private Map<String, Object> refMap;
+    private Map<String, Object> refMap = new ConcurrentHashMap<>();
 
-    public void init(int port, Map<String, Object> refMap) {
-        this.refMap = refMap;
+    public void init(int port) {
         start(port);
     }
 
@@ -55,6 +55,11 @@ public class RpcServer {
                 }
             }
         });
+    }
+
+    public void registerRef(Object ref) {
+        refMap.put(ref.getClass().getName(), ref);
+
     }
 
 }

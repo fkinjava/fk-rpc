@@ -4,6 +4,7 @@ import com.fk.rpc.client.connect.ConnectionPool;
 import com.fk.rpc.client.proxy.RpcSyncProxy;
 
 import java.lang.reflect.Proxy;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,6 +16,19 @@ public class RpcClient {
     public RpcClient(String providerAddresses) {
         this.pool = new ConnectionPool();
         pool.init(providerAddresses);
+    }
+
+    public RpcClient(List<String> addrList) {
+        this.pool = new ConnectionPool();
+        StringBuffer addresses = new StringBuffer();
+        for (int i = 0; i < addrList.size(); i++) {
+            if (i == (addrList.size() - 1)) {
+                addresses.append(addrList.get(i));
+            } else {
+                addresses.append(addrList.get(i)).append(",");
+            }
+        }
+        pool.init(addresses.toString());
     }
 
     /**
