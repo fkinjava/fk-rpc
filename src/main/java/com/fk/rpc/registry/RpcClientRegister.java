@@ -37,7 +37,7 @@ public class RpcClientRegister {
             }
         serviceList.forEach(service -> {
                 try {
-                    List<String> addrList = children.forPath(basePath + "/" + service + "/provider");
+                    List<String> addrList = children.forPath(basePath + "/" + service + "/providers");
                     ConsumerConfig config = ConsumerConfig.builder().url(addrList).build();
                     configMap.put(service, config);
                 } catch (Exception e) {

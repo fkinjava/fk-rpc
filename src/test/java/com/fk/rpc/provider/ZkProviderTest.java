@@ -8,11 +8,11 @@ import com.fk.rpc.server.RpcServer;
 public class ZkProviderTest {
     public static void main(String[] args) {
         RpcServer rpcServer = new RpcServer();
-        rpcServer.init(8080);
+        rpcServer.init(8085);
         HelloServiceImpl helloService = new HelloServiceImpl();
-        rpcServer.registerRef(helloService);
+        rpcServer.registerRef(HelloService.class.getName(),helloService);
 
-        ProviderConfig config = ProviderConfig.builder().address("127.0.0.1:8080").interfaceClassName(HelloService.class.getName())
+        ProviderConfig config = ProviderConfig.builder().address("127.0.0.1:8085").interfaceClassName(HelloService.class.getName())
                 .ref(helloService).build();
         RpcServerRegister rpcServerRegister = new RpcServerRegister();
         rpcServerRegister.init();

@@ -13,6 +13,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -57,8 +58,8 @@ public class RpcServer {
         });
     }
 
-    public void registerRef(Object ref) {
-        refMap.put(ref.getClass().getName(), ref);
+    public void registerRef(String interfaceName, Object ref) {
+        refMap.put(interfaceName, ref);
 
     }
 

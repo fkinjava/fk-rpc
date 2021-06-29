@@ -6,8 +6,9 @@ import com.fk.rpc.registry.ConsumerConfig;
 import com.fk.rpc.registry.RpcClientRegister;
 
 public class ZkConsumerTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         RpcClientRegister register = new RpcClientRegister();
+        register.init();
         ConsumerConfig config = register.getConfig(HelloService.class);
         RpcClient rpcClient = new RpcClient(config.getUrl());
         HelloService helloService = rpcClient.getSyncProxy(HelloService.class);
